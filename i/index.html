@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Watchside</title>
     <meta name="description" content="Watchside — see where your friends are watching Twitch." />
+    <meta name="theme-color" content="#0b0b0e" />
+    <!--
+      The mark, inline. An external icon file would be the one request these
+      pages otherwise never make, and it is 400 bytes.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%230B0B0E'/%3E%3Cpath d='M40 102 H92 a20 20 0 0 0 20-20 V42 a20 20 0 0 0-20-20 H36 a20 20 0 0 0-20 20 v40 a20 20 0 0 0 20 20 h2 v14 z' fill='none' stroke='%23A855F7' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M42 66 L50 86 L64 72 L78 86 L86 66' fill='none' stroke='%23A855F7' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='52' cy='49' r='6' fill='%23A855F7'/%3E%3Ccircle cx='80' cy='49' r='6' fill='%23A855F7'/%3E%3C/svg%3E"
+    />
     <!--
       No analytics, no tracking, no external scripts, no external fonts, no
       cookies. Everything each page needs is in that page. The domain existing
@@ -19,6 +28,21 @@
         --dim: #9c9ca8;
         --line: #26262f;
         --accent: #a855f7;
+        /* The deeper end of the brand purple, for gradients and hovers. */
+        --accent-deep: #9333ea;
+        --accent-soft: rgba(168, 85, 247, 0.12);
+      }
+
+      /* Nobody should be ambushed by motion they did not ask for. */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
       }
 
       * { box-sizing: border-box; }
@@ -91,6 +115,19 @@
       }
       .cta:hover { filter: brightness(1.08); }
 
+      /* The second choice beside a primary one: same shape, less weight. */
+      .cta-alt {
+        margin-left: 10px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+      .cta-alt:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+      @media (max-width: 480px) {
+        .cta, .cta-alt { display: block; margin-left: 0; text-align: center; }
+      }
+
       .card {
         padding: 18px 20px;
         border: 1px solid var(--line);
@@ -113,13 +150,33 @@
         h1 { font-size: 1.6rem; }
       }
     </style>
+
   </head>
   <body>
     <main>
       <div class="mark">
-        <svg width="28" height="28" viewBox="0 0 32 32" role="img" aria-label="Watchside">
-          <circle cx="16" cy="16" r="15" fill="none" stroke="#a855f7" stroke-width="2" />
-          <circle cx="16" cy="16" r="5" fill="#a855f7" />
+        <!-- The real Watchside mark, the same geometry as
+             assets/brand/watchside-mark.svg. -->
+        <svg width="28" height="28" viewBox="0 0 128 128" role="img" aria-label="Watchside">
+          <rect width="128" height="128" rx="28" fill="#0B0B0E" />
+          <path
+            d="M40 102 H92 a20 20 0 0 0 20-20 V42 a20 20 0 0 0-20-20 H36 a20 20 0 0 0-20 20 v40 a20 20 0 0 0 20 20 h2 v14 z"
+            fill="none"
+            stroke="#A855F7"
+            stroke-width="11"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M42 66 L50 86 L64 72 L78 86 L86 66"
+            fill="none"
+            stroke="#A855F7"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle cx="52" cy="49" r="6" fill="#A855F7" />
+          <circle cx="80" cy="49" r="6" fill="#A855F7" />
         </svg>
         <span class="wordmark">watchside</span>
       </div>
@@ -130,9 +187,19 @@
         you where your friends are watching on Twitch.
       </p>
 
+      <!--
+        Both browsers, because this page is where invite links land.
+
+        It offered Chrome alone for as long as that was the only store
+        Watchside was published in. Firefox users following a friend's invite
+        reached a page that told them to install something they could not.
+      -->
       <p>
         <a class="cta" id="install" href="https://chromewebstore.google.com/detail/ngfopkeokddfnncdhfkhnffilbdhkkip"
           >Add to Chrome</a
+        >
+        <a class="cta cta-alt" href="https://addons.mozilla.org/firefox/addon/watchside/"
+          >Add to Firefox</a
         >
       </p>
       <p class="dim" id="next" hidden>
@@ -174,6 +241,20 @@
          * browser shows the user as "read your data on that site" - for one
          * string. The hop avoids asking for that.
          *
+         * TWO ROUTES, KEPT APART
+         *
+         * /i/CODE means a friend invited you. /c/CODE means a campaign brought
+         * you. They are different facts about how somebody arrived, so they get
+         * different prefixes, different parameters and different copy - a code
+         * whose meaning depended on context would be discovered wrong in a
+         * report six weeks later.
+         *
+         * A campaign link carries a CODE AND NOTHING ELSE. No source, no
+         * creator, no label: everything about what a campaign is resolves
+         * server-side from a registry the visitor cannot write to. Somebody
+         * appending ?source=official_twitch_partnership changes nothing at all,
+         * because nothing here reads it.
+         *
          * Nothing is stored, nothing is sent anywhere, no analytics run, and no
          * destination is taken from the URL: the only link this page can build
          * points at twitch.tv.
@@ -188,6 +269,27 @@
            * carries, and those must keep working - so both are read, and the
            * path wins if somehow both are present.
            */
+          /*
+           * A campaign code, from /c/CODE.
+           *
+           * Lowercase and hyphenated, 2-32 characters - readable because these
+           * get typed off a stream overlay by hand. Requires the /c/ prefix
+           * rather than taking a trailing segment: any path has a last segment,
+           * and matching one of those would attribute somebody to a campaign
+           * that never existed.
+           */
+          var CAMPAIGN_PATTERN = /^[a-z0-9]([a-z0-9-]{0,30}[a-z0-9])$/
+
+          function readCampaign() {
+            var match = /^\/c\/([^/?#]+)\/?$/.exec(window.location.pathname || '')
+            if (!match) return ''
+            try {
+              return decodeURIComponent(match[1]).trim().toLowerCase()
+            } catch (error) {
+              return ''
+            }
+          }
+
           function readCode() {
             var path = window.location.pathname || ''
             var match = /^\/i\/([^/?#]+)\/?$/.exec(path)
@@ -200,6 +302,28 @@
             }
             var query = new URLSearchParams(window.location.search).get('c') || ''
             return query.trim().toUpperCase()
+          }
+
+          var campaign = readCampaign()
+          if (CAMPAIGN_PATTERN.test(campaign)) {
+            /*
+             * A campaign arrival. Different copy from an invite, because the
+             * visitor was not invited by anybody they know and telling them
+             * they were would be a small lie on the first screen.
+             */
+            document.getElementById('headline').textContent =
+              'Watch Twitch alongside your friends'
+            document.getElementById('blurb').textContent =
+              'Watchside shows you where your friends are watching on Twitch, so you can jump in together.'
+            document.getElementById('next').hidden = false
+            document.getElementById('continue-wrap').hidden = false
+            document
+              .getElementById('continue')
+              .setAttribute(
+                'href',
+                'https://www.twitch.tv/?watchside_campaign=' + encodeURIComponent(campaign),
+              )
+            return
           }
 
           var code = readCode()
