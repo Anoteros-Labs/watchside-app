@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Watchside</title>
+    <meta name="description" content="How the Watchside browser extension handles your data." />
+    <!--
+      No analytics, no tracking, no external scripts, no external fonts.
+      Everything this page needs is in this file.
+    -->
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0b0e;
+        --surface: #131318;
+        --text: #f5f5f7;
+        --dim: #9c9ca8;
+        --line: rgba(255, 255, 255, 0.1);
+        --accent: #a855f7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        padding: 48px 24px 96px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main { max-width: 46rem; margin: 0 auto; }
+
+      .back {
+        display: inline-block;
+        margin-bottom: 28px;
+        color: var(--dim);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      .back:hover { color: var(--text); }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        margin: 40px 0 12px;
+        font-size: 1.3rem;
+        letter-spacing: -0.01em;
+      }
+      h3 {
+        margin: 28px 0 10px;
+        font-size: 1.05rem;
+        color: var(--dim);
+      }
+
+      p { margin: 0 0 16px; }
+      ul, ol { margin: 0 0 16px; padding-left: 1.4em; }
+      li { margin-bottom: 8px; }
+
+      strong { color: #fff; }
+
+      code {
+        padding: 1px 5px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.08);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      a { color: var(--accent); }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 3px;
+      }
+
+      hr {
+        margin: 36px 0;
+        border: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      /* Wide tables scroll inside themselves rather than the page. */
+      .table-scroll {
+        margin: 0 0 8px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+      }
+
+      /*
+       * Given room, and allowed to scroll.
+       *
+       * Without a minimum the columns squeeze until "Twitch identity (your
+       * Twitch user id, login, display name, avatar URL)" wraps over six lines
+       * and the table is harder to read than the prose it summarises.
+       */
+      table {
+        width: 100%;
+        min-width: 54rem;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      td:first-child, th:first-child { min-width: 11rem; }
+
+      th, td {
+        padding: 9px 12px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+
+      th {
+        color: var(--dim);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      tbody tr:last-child td { border-bottom: 0; }
+
+      .table-note { margin: 0 0 24px; color: #6b6b78; font-size: 0.8rem; }
+
+      @media (max-width: 640px) {
+        body { padding: 32px 16px 64px; }
+        h1 { font-size: 1.6rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="/">&larr; Watchside</a>
+      <h1>Watchside — Privacy Policy</h1>
+      <p><strong>Last updated:</strong> 25 August 2026</p>
+      <p><strong>Applies to:</strong> Watchside browser extension, private beta (v0.4.x)</p>
+      <p>Watchside shows you which of your friends are watching Twitch, and lets you join them. This policy describes exactly what it handles, where that goes, and what it never touches. It describes the software as it is actually built, not as a category of software generally behaves.</p>
+      <p><strong>Watchside does not sell your data, share it with third parties, or use it for advertising of any kind.</strong> There is no advertising in Watchside and no advertising or analytics SDK in it.</p>
+      <hr />
+      <h2>Who runs it</h2>
+      <p>Watchside is an independent project, currently in a small private beta. Contact: <strong>anoteros.dev@gmail.com</strong> — the same address for privacy questions, support, and data deletion requests.</p>
+      <h2>Where your data goes</h2>
+      <p>Two places, and nowhere else:</p>
+      <ol><li><strong>Your own browser</strong>, using Chrome's <code>storage</code> permission (<code>chrome.storage.local</code>).</li><li><strong>Watchside's backend</strong>, hosted on Supabase (<code>*.supabase.co</code>).</li></ol>
+      <p>Watchside also reads <strong>public emote metadata</strong> from 7TV (<code>7tv.io</code>) and displays emote images from <code>cdn.7tv.app</code>, so that chat shows the emotes you already see on Twitch. These requests carry <strong>the channel name</strong>, so that channel's emote set can be looked up, and nothing else. <strong>No information about you is sent to 7TV</strong> — not your identity, not who your friends are, not what you type.</p>
+      <h2>What Watchside handles</h2>
+      <div class="table-scroll"><table>
+      <thead><tr><th>What</th><th>Stored on your device</th><th>Sent to our backend</th><th>Visible to other users</th><th>Used for analytics</th><th>Retention</th></tr></thead>
+      <tbody>
+      <tr><td><strong>Twitch identity</strong> (your Twitch user id, login, display name, avatar URL)</td><td>session only</td><td>yes</td><td>your display name, avatar and Twitch username are visible to your friends and to people in your groups</td><td>no</td><td>until you ask us to delete your account</td></tr>
+      <tr><td><strong>Watchside account</strong> (user id, friend code)</td><td>session only</td><td>yes</td><td>friend code only if you share it</td><td>no (ids are never event properties)</td><td>same</td></tr>
+      <tr><td><strong>Sign-in session</strong> (Supabase access/refresh tokens)</td><td><strong>yes</strong></td><td>—</td><td>never</td><td>never</td><td>until sign-out or expiry</td></tr>
+      <tr><td><strong>Twitch authorisation</strong> (the credential Twitch issues when you connect Watchside)</td><td><strong>never</strong> — removed from your browser</td><td><strong>yes, encrypted</strong></td><td>never</td><td>never</td><td>until you disconnect Watchside on Twitch, or delete your account</td></tr>
+      <tr><td><strong>Friendships, friend requests</strong></td><td>no</td><td>yes</td><td>to the people involved</td><td>counts only</td><td>until removed, or account deleted</td></tr>
+      <tr><td><strong>Groups and membership</strong></td><td>no</td><td>yes</td><td>to group members</td><td>counts only</td><td>until you leave, or the group is deleted</td></tr>
+      <tr><td><strong>Presence</strong> (online, and the Twitch channel you are watching)</td><td>no</td><td>yes</td><td>to friends, and to people you share a group with — subject to your visibility setting</td><td>no channel identity beyond the destination of a JOIN</td><td>rows are transient and overwritten; nothing historical is kept</td></tr>
+      <tr><td><strong>Stream-session messages</strong> (the ephemeral chat on a channel you are watching)</td><td>in memory while the panel is open</td><td>yes</td><td>to the people the server authorised at the moment you sent it</td><td><strong>never</strong> — no message body, ever</td><td><strong>deleted after 30 minutes</strong>, and capped in count</td></tr>
+      <tr><td><strong>Group messages</strong> (the chat inside a group you created or joined)</td><td>in memory while the panel is open</td><td>yes</td><td>to the other members of that group</td><td><strong>never</strong> — only a length bucket and whether it contained an emote</td><td>kept until the group is deleted or your account is deleted</td></tr>
+      <tr><td><strong>Reactions and emotes you send</strong></td><td>in memory</td><td>yes</td><td>to the same people</td><td>that a reaction happened, and how many — <strong>never which emote</strong></td><td>about a minute; the server sweeps them</td></tr>
+      <tr><td><strong>Mute</strong></td><td><strong>yes, only on your device</strong></td><td><strong>never</strong></td><td>no</td><td>no</td><td>until you unmute</td></tr>
+      <tr><td><strong>Block</strong></td><td>no</td><td>yes</td><td>never — the other person is never told</td><td>that a block happened, with <strong>no identifiers of either party</strong></td><td>until you unblock</td></tr>
+      <tr><td><strong>Panel position and size</strong></td><td><strong>yes</strong></td><td>never</td><td>no</td><td>no</td><td>until you reset the layout</td></tr>
+      <tr><td><strong>How long you had each live stream open</strong></td><td>the streams open right now, and nothing else</td><td>yes</td><td>never</td><td>yes — see "Viewing time" below</td><td>each stretch is deleted from your device when it ends; the recorded length is kept as analytics</td></tr>
+      <tr><td><strong>Analytics</strong></td><td>a session id</td><td>yes</td><td>never</td><td>—</td><td>see below</td></tr>
+      <tr><td><strong>JOIN attribution</strong></td><td>a random id, for minutes</td><td>yes</td><td>never</td><td>yes, that is its purpose</td><td>the id is dropped after the window closes</td></tr>
+      <tr><td><strong>Whether you already followed a creator you joined through a friend</strong></td><td>no</td><td>yes</td><td>never</td><td>yes, in aggregate only</td><td>until you disconnect Watchside on Twitch, or delete your account</td></tr>
+      <tr><td><strong>Feedback you send</strong></td><td>no</td><td>yes</td><td>never</td><td>only the category</td><td>kept until it has been acted on</td></tr>
+      <tr><td><strong>Diagnostics attached to feedback</strong></td><td>no</td><td>yes</td><td>never</td><td>no</td><td>with the feedback</td></tr>
+      </tbody></table></div>
+      <p class="table-note">Scroll the table sideways to see every column.</p>
+      <h3>The Twitch authorisation Watchside stores</h3>
+      <p>When you sign in, Twitch issues Watchside a credential that represents your connection. Watchside stores it <strong>on its server, encrypted</strong>, and removes it from your browser entirely.</p>
+      <p><strong>Why it is kept.</strong> Watchside is trying to answer one question honestly: does seeing where your friends are watching actually lead you to creators? Answering it means asking Twitch a question at the moment a friend leads you somewhere, and Twitch only hands over the means to ask once, when you sign in. Keeping it is the only way to ask later.</p>
+      <p><strong>How it is protected.</strong></p>
+      <ul><li>It is encrypted before it is written down, with a key that is <strong>not</strong> stored in the database. Someone with a complete copy of the database still cannot read it.</li><li>It is never sent to another user, never shown in the extension, and never written into analytics or logs.</li><li>It never comes back to your browser. Not even to you.</li></ul>
+      <p><strong>How it ends.</strong></p>
+      <ul><li><strong>Disconnect Watchside on Twitch</strong> and the credential is destroyed, along with anything Watchside worked out about your relationship with creators. Your Watchside account and friends are untouched.</li><li><strong>Delete your Watchside account</strong> and it goes with everything else.</li><li><strong>Signing out does not remove it</strong> — signing out ends a session, it does not withdraw a permission.</li></ul>
+      <p><strong>What it is used for.</strong> Exactly one thing, described in full in the next section.</p>
+      <h3>The one check Watchside makes with it</h3>
+      <p>When you click <strong>JOIN</strong> in Watchside to watch a creator your friends are watching, and you have granted the Twitch permission described below, Watchside asks Twitch a single question at that moment:</p>
+      <p><strong>Did this person already follow this creator?</strong></p>
+      <p>The answer — yes or no — is recorded once against that JOIN, and is used only to produce aggregate figures about whether friends help people find creators they were not already watching.</p>
+      <p><strong>When it happens, and when it does not.</strong></p>
+      <ul><li>Only for a JOIN you clicked <strong>in Watchside</strong>, on a creator a friend was watching. That is the whole population.</li><li><strong>Not</strong> when you browse Twitch normally, type a channel name, follow a link, or arrive any other way. Watchside asks nothing about those.</li><li><strong>Not</strong> if you have not granted the permission. Watchside carries on working and simply records nothing.</li><li><strong>Not</strong> afterwards. If the check cannot be made at the moment you join, that JOIN has no answer and never gets one later.</li></ul>
+      <p><strong>The permission.</strong> This needs one Twitch permission, <code>user:read:follows</code>, which you are asked for on Twitch's own consent screen when you connect Watchside. It is optional: everything in Watchside works without it, and granting it never changes who you follow. It is the only Twitch permission Watchside asks for beyond signing you in.</p>
+      <p><strong>What Watchside does not do with it.</strong></p>
+      <ul><li>It does <strong>not</strong> read the list of creators you follow. It asks about one creator, the one you just joined, and nothing else.</li><li>It does <strong>not</strong> watch whether you follow someone afterwards, and it does not claim that Watchside caused any follow. It records only what was already true at the moment you joined.</li><li>It does <strong>not</strong> go back over JOINs you made in the past.</li></ul>
+      <p><strong>How it ends.</strong> These answers are Twitch-derived, so they follow the credential: <strong>disconnect Watchside on Twitch and they are deleted</strong>, along with the credential itself. Deleting your Watchside account deletes them too, with everything else. Signing out deletes neither.</p>
+      <p>Your own Watchside activity — that you clicked JOIN, that you arrived, how long you watched — is Watchside's own record of its own product, and <strong>is not deleted by disconnecting Twitch</strong>. Deleting your Watchside account does delete it.</p>
+      <h3>Two kinds of chat, with two different lifetimes</h3>
+      <p>The <strong>stream session</strong> that appears when you and your friends are watching the same thing is deliberately temporary: it is swept after thirty minutes and is not a history you can scroll back through.</p>
+      <p><strong>Group chat is not.</strong> A group is a place you made on purpose, so its messages stay until the group is deleted or your account is. If you want a conversation that disappears, use the stream session; if you want one that lasts, use a group.</p>
+      <h3>Your visibility setting</h3>
+      <p>The account panel lets you choose whether friends see your activity, see only that you are online, or see nothing at all. <strong>This is applied when your presence is written, not when somebody reads it</strong> — if you have chosen to hide your activity, the channel is never stored, so there is nothing for anyone to read.</p>
+      <h2>Analytics, specifically</h2>
+      <p>Watchside records how the product is used so we can tell whether it works. It is built so that it <em>cannot</em> carry personal content:</p>
+      <ul><li>Every property is a small fact — a count, a bucket, a true/false, or a short word from a fixed list. <strong>Values are capped at 64 characters and unknown keys are discarded by the server</strong>, so there is no way to attach a message, a search term, a URL, an email address or a token even by mistake.</li><li><strong>Never recorded:</strong> message bodies — from either the stream session or from group chat — which emote you used, what you searched for, your friends' identities, who you blocked or muted, email addresses, friend codes, browsing history, or any Twitch or Supabase token.</li><li><strong>Twitch channel names are recorded</strong> for social events — a friend's activity being shown to you, a JOIN, a shared watch. This is how we can tell whether Watchside actually sends people anywhere. It is a channel, not a URL, and only for channels Watchside itself surfaced or you acted on. <strong>Watchside does not record your browsing generally, on Twitch or anywhere else.</strong></li><li><strong>Watchside records how long you watch a Twitch channel.</strong> This is described in full under "Viewing time" below.</li><li><strong>On Firefox, diagnostic events are not recorded at all.</strong> See "Technical and interaction data" below.</li><li>Events are labelled with the build they came from, so beta data can be deleted separately from anything else.</li></ul>
+      <h3>Viewing time</h3>
+      <p><strong>Watchside records how long you watch a live Twitch channel.</strong> When you are watching a channel, Watchside measures that stretch of time and records its length, together with the channel name.</p>
+      <p>We are stating that plainly because it is a real change in what Watchside keeps. Until now Watchside recorded how long you watched <em>with a friend</em>; it now also records how long you watched.</p>
+      <p><strong>Why.</strong> Watchside's purpose is to bring people to streams together. We cannot tell whether that works without knowing whether it leads to people actually watching — and whether they come back to a streamer they met through Watchside. Without this, we can only measure the part of your viewing that happened to involve a friend, which tells us nothing about how much difference Watchside made.</p>
+      <p><strong>If you have more than one stream open, each one is counted separately.</strong> Two streams open for an hour are recorded as two one-hour stretches, not one. That is how we can tell how much Twitch viewing Watchside is part of; it is not a claim that you were sitting there for two hours, and we do not describe it that way.</p>
+      <p>A stream still counts while its tab is in the background — on another monitor, or behind something else. We also record how much of each stretch the stream was the one you had in front of you, because "playing in the background" and "the thing you were watching" are genuinely different and we would rather not confuse them.</p>
+      <p><strong>What is recorded for each stretch of viewing:</strong></p>
+      <ul><li>how long it lasted</li><li>how much of that time it was the stream in front of you</li><li>which channel</li><li>whether you got there by pressing JOIN in Watchside</li><li>whether a friend was watching with you at any point during it</li><li>why it ended — you closed or left the stream, the stream ended, you signed out, or Watchside stopped being able to observe</li></ul>
+      <p><strong>What is not recorded:</strong></p>
+      <ul><li><strong>Not the video, the title, the category, the viewer count, or anything else about the stream.</strong> The channel name and a duration are the whole of it.</li><li><strong>Not what you watch generally.</strong> Only channels on Twitch, and only while Watchside is running and you are signed in.</li><li><strong>Not other tabs.</strong> Watchside only ever looks at Twitch. A stream counts whether or not it is in front of you, but nothing else you have open is seen at all.</li><li><strong>Not offline channels.</strong> Sitting on a channel with no stream running records no viewing time.</li><li><strong>Not time we did not observe.</strong> If your computer sleeps or the browser stops Watchside in the background, the interval is closed at the last moment we could actually see, and the gap is never counted as viewing.</li></ul>
+      <p><strong>What is stored on your device:</strong> only the stretches of viewing currently in progress — one per stream you have open — and each is deleted as soon as it ends. If you are not watching anything, there is nothing about your viewing stored on your device at all.</p>
+      <p><strong>This is not shared with anyone.</strong> It is not visible to your friends, it is never sold or shared with third parties, and it is not used for advertising.</p>
+      <h2>Feedback, specifically</h2>
+      <p>If you send feedback from the account panel, we receive <strong>what you wrote</strong>, plus a small set of diagnostics assembled by the extension: the Watchside version, the build, which Watchside tab was open, the Twitch channel you were on, how many friends you have, whether a stream session existed, and whether the realtime connection was healthy. On Chrome it also includes your browser name and major version (e.g. "Chrome 141"); <strong>on Firefox that field is omitted</strong>, because it is browser information and Watchside collects none of that on Firefox.</p>
+      <p>That is the complete list, and it is enforced by the server, which rebuilds it field by field and discards anything else. <strong>Feedback never carries tokens, cookies, message contents, what you were typing, or the identities of your friends.</strong> We can see who sent it, so that we can follow up.</p>
+      <h2>What Watchside never does</h2>
+      <ul><li><strong>No advertising, ever</strong>, and no use or transfer of your data for personalised, retargeted or interest-based advertising.</li><li><strong>No selling or sharing</strong> of personal data with third parties.</li><li><strong>No reading of web pages.</strong> Watchside runs on <code>twitch.tv</code> only, and only to place its own panel and read which channel the page is showing. It does not read Twitch chat, scrape the page, or touch any other site.</li><li><strong>No credential handling.</strong> Sign-in goes through Twitch's own OAuth page via Chrome's <code>identity</code> API. Watchside never sees your Twitch password, and the extension contains no client secret.</li><li><strong>No Twitch access token in the page.</strong> Provider tokens stay in the extension's background service worker and are never given to the content script — the part that runs alongside Twitch's own code.</li><li><strong>No remote code.</strong> Everything Watchside executes ships inside the extension package. Nothing is downloaded and run.</li><li><strong>No use or transfer of your data to determine creditworthiness, or for lending purposes.</strong></li><li><strong>No use or transfer of your data for any purpose unrelated to Watchside's single purpose</strong> — showing you which friends are watching Twitch, and letting you join them.</li></ul>
+      <h2>Permissions, and why</h2>
+      <ul><li><strong><code>identity</code></strong> — to sign you in with Twitch.</li><li><strong><code>storage</code></strong> — to keep your session, panel position and mute list on your device.</li><li><strong><code>alarms</code></strong> — to refresh your sign-in session periodically. A Chrome extension service worker is shut down when idle, so this is the only way to schedule that.</li><li><strong><code>notifications</code></strong> — for the optional desktop alert when several friends gather on one channel. You can turn it off in the account panel.</li><li><strong>Watchside's own backend</strong> — sign-in, presence, friends, groups and rooms. The Firefox add-on grants exactly one origin, our own Supabase project. The Chrome extension currently grants <code>https://*.supabase.co/*</code>; it reaches only the same single project, and will be narrowed to match at its next release.</li><li><strong><code>https://7tv.io/*</code>, <code>https://cdn.7tv.app/*</code></strong> — public emote metadata and images. The request carries the <strong>channel name</strong>, so that channel's emote set can be looked up, and nothing that identifies you: no account, no user id, no token, and no cookie of ours.</li></ul>
+      <p>Watchside requests <strong>no access to sites other than Twitch</strong>, and cannot read any other page you visit.</p>
+      <h2>What Firefox tells you at install</h2>
+      <p>Firefox asks for consent to data collection in its own words, from what the add-on declares in its manifest. Watchside declares four things, and they map to the table above:</p>
+      <div class="table-scroll"><table>
+      <thead><tr><th>Firefox says</th><th>What that is here</th></tr></thead>
+      <tbody>
+      <tr><td>Authentication information</td><td>signing in with Twitch, and the Watchside account it creates</td></tr>
+      <tr><td>Browsing activity</td><td>the Twitch channel you are watching — the whole point of the product</td></tr>
+      <tr><td>Personal communications</td><td>stream-session messages, reactions, and feedback you write</td></tr>
+      <tr><td>Website activity</td><td>JOINs, and which surface you clicked one from</td></tr>
+      </tbody></table></div>
+      <p class="table-note">Scroll the table sideways to see every column.</p>
+      <p>Watchside does <strong>not</strong> declare <em>personally identifying information</em>: no email address, phone number, postal address, demographics or biometrics is collected anywhere. Your Twitch handle, display name and avatar are your own public Twitch profile, and they are covered by <em>authentication information</em>.</p>
+      <h3>Technical and interaction data: Firefox collects none</h3>
+      <p>Firefox has a fifth category, <em>technical and interaction data</em> — device and browser information, and crash and error reports. Mozilla only allows it as an <strong>optional</strong> permission, which would mean asking you a second question at install.</p>
+      <p><strong>We would rather not collect it than ask.</strong> On Firefox, Watchside sends no error reports at all: three diagnostic signals that the Chrome extension does record — a caught error, a realtime connection changing state, and a group message being refused — are dropped inside the extension and never reach our server. They are not queued, not retried, and not sent later.</p>
+      <p>So there is <strong>no consent prompt and no analytics switch</strong> in Watchside for Firefox, because there is nothing to consent to or switch off. Everything else on this page still applies: the data listed above is what the add-on needs to do what it does, and Firefox asks you about it once, at install.</p>
+      <p>Watchside collects no device information on any browser, and no browser information on Firefox.</p>
+      <p>On <strong>Chrome</strong>, those three diagnostic signals are still recorded. They carry a call site and an error code from fixed lists — never a message, a URL, an exception text or a stack trace — exactly as the analytics section describes.</p>
+      <h2>Your choices</h2>
+      <ul><li><strong>Hide your activity or go invisible</strong> — account panel, at any time.</li><li><strong>Mute somebody</strong> — local to your device; nothing is sent.</li><li><strong>Block somebody</strong> — removes the friendship, stops all Watchside contact between you, and is never disclosed to them.</li><li><strong>Sign out</strong> — clears the session from your device. It deletes nothing on the server: your account, your friends and your history are all still there when you sign back in.</li><li><strong>Delete your account</strong> — in the account panel, whenever you want. No email, no waiting on us.</li></ul>
+      <p>It asks you to type your Twitch username first, because it cannot be undone. Deleting removes your profile, friendships, friend requests, group memberships, group and stream messages, presence, blocks, invites, referrals, badges, feedback and your analytics history. Nothing is kept back.</p>
+      <p>Two things worth knowing before you do it. <strong>Groups you created are deleted for everyone in them</strong> — a group cannot outlive its owner, so tell the others first if that matters. And messages you sent disappear from conversations other people can still see, which may leave gaps in them.</p>
+      <p>It does not touch your Twitch account, and it does not unfollow anybody.</p>
+      <ul><li><strong>Uninstall</strong> — removes everything Watchside stored on your device. Data on the backend is removed on request as above.</li></ul>
+      <h2>Children</h2>
+      <p>Watchside is not directed at children and follows Twitch's own minimum age requirements. Do not use Watchside if you are not permitted to use Twitch.</p>
+      <h2>Changes</h2>
+      <p>This is a private beta and the product is changing. Material changes to this policy will be reflected here, with the date at the top updated, and told to beta testers directly.</p>
+      <hr />
+      <p><em>Watchside is not affiliated with, endorsed by, or sponsored by Twitch Interactive, Inc. or 7TV. "Twitch" is a trademark of Twitch Interactive, Inc.</em></p>
+    </main>
+  </body>
+</html>
