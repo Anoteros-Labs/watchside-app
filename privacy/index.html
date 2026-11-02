@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Privacy Policy — Watchside</title>
+    <!-- The same inline mark every other page carries, so the browser does not go
+         looking for a /favicon.ico that does not exist. -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%230B0B0E'/%3E%3Cpath d='M40 102 H92 a20 20 0 0 0 20-20 V42 a20 20 0 0 0-20-20 H36 a20 20 0 0 0-20 20 v40 a20 20 0 0 0 20 20 h2 v14 z' fill='none' stroke='%23A855F7' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M42 66 L50 86 L64 72 L78 86 L86 66' fill='none' stroke='%23A855F7' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='52' cy='49' r='6' fill='%23A855F7'/%3E%3Ccircle cx='80' cy='49' r='6' fill='%23A855F7'/%3E%3C/svg%3E" />
     <meta name="description" content="How the Watchside browser extension handles your data." />
     <!--
       No analytics, no tracking, no external scripts, no external fonts.
@@ -139,7 +142,7 @@
 
       tbody tr:last-child td { border-bottom: 0; }
 
-      .table-note { margin: 0 0 24px; color: #6b6b78; font-size: 0.8rem; }
+      .table-note { margin: 0 0 24px; color: #9c9ca8; font-size: 0.8rem; }
 
       @media (max-width: 640px) {
         body { padding: 32px 16px 64px; }
@@ -151,7 +154,7 @@
     <main>
       <a class="back" href="/">&larr; Watchside</a>
       <h1>Watchside — Privacy Policy</h1>
-      <p><strong>Last updated:</strong> 2 September 2026</p>
+      <p><strong>Last updated:</strong> 2 November 2026</p>
       <p><strong>Applies to:</strong> the Watchside browser extension for Chrome and Firefox, and the watchside.app website.</p>
       <p>Watchside shows you which of your friends are watching Twitch, and lets you join them. This policy describes exactly what it handles, where that goes, and what it never touches. It describes the software as it is actually built, not as a category of software generally behaves.</p>
       <p><strong>Watchside does not sell your data, share it with third parties, or use it for advertising of any kind.</strong> There is no advertising in Watchside and no advertising or analytics SDK in it.</p>
@@ -179,16 +182,16 @@
       <div class="table-scroll"><table>
       <thead><tr><th>What</th><th>Stored on your device</th><th>Sent to our backend</th><th>Visible to other users</th><th>Used for analytics</th><th>Retention</th></tr></thead>
       <tbody>
-      <tr><td><strong>Twitch identity</strong> (your Twitch user id, login, display name, avatar URL)</td><td>session only</td><td>yes</td><td>your display name, avatar and Twitch username are visible to your friends and to people in your groups</td><td>no</td><td>until you ask us to delete your account</td></tr>
+      <tr><td><strong>Twitch identity</strong> (your Twitch user id, login, display name, avatar URL)</td><td>session only</td><td>yes</td><td>your display name, avatar and Twitch username are visible to your friends, to people in your groups, to people in a stream session <strong>after you send a message or reaction there</strong> (for 30 minutes after your last one), and to someone who signs in with <strong>your invite link</strong></td><td>no</td><td>until you ask us to delete your account</td></tr>
       <tr><td><strong>Watchside account</strong> (user id, friend code)</td><td>session only</td><td>yes</td><td>friend code only if you share it</td><td>no (ids are never event properties)</td><td>same</td></tr>
       <tr><td><strong>Sign-in session</strong> (Supabase access/refresh tokens)</td><td><strong>yes</strong></td><td>—</td><td>never</td><td>never</td><td>until sign-out or expiry</td></tr>
       <tr><td><strong>Twitch authorisation</strong> (the credential Twitch issues when you connect Watchside)</td><td><strong>never</strong> — removed from your browser</td><td><strong>yes, encrypted</strong></td><td>never</td><td>never</td><td>until you disconnect Watchside on Twitch, or delete your account</td></tr>
       <tr><td><strong>Friendships, friend requests</strong></td><td>no</td><td>yes</td><td>to the people involved</td><td>counts only</td><td>until removed, or account deleted</td></tr>
       <tr><td><strong>Groups and membership</strong></td><td>no</td><td>yes</td><td>to group members</td><td>counts only</td><td>until you leave, or the group is deleted</td></tr>
       <tr><td><strong>Presence</strong> (online, and the Twitch channel you are watching)</td><td>no</td><td>yes</td><td>to friends, and to people you share a group with — subject to your visibility setting</td><td>no channel identity beyond the destination of a JOIN</td><td>rows are transient and overwritten; nothing historical is kept</td></tr>
-      <tr><td><strong>Stream-session messages</strong> (the ephemeral chat on a channel you are watching)</td><td>in memory while the panel is open</td><td>yes</td><td>to the people the server authorised at the moment you sent it</td><td><strong>never</strong> — no message body, ever</td><td><strong>deleted after 30 minutes</strong>, and capped in count</td></tr>
+      <tr><td><strong>Stream-session messages</strong> (the ephemeral chat on a channel you are watching)</td><td>in memory while the panel is open</td><td>yes</td><td>to the people the server authorised at the moment you sent it</td><td><strong>never</strong> — no message body, ever</td><td><strong>deleted 30 minutes after they are sent</strong>, and capped in count. A scheduled sweep runs every five minutes, so the outside limit is 35 minutes</td></tr>
       <tr><td><strong>Group messages</strong> (the chat inside a group you created or joined)</td><td>in memory while the panel is open</td><td>yes</td><td>to the other members of that group</td><td><strong>never</strong> — only a length bucket and whether it contained an emote</td><td>kept until the group is deleted or your account is deleted</td></tr>
-      <tr><td><strong>Reactions and emotes you send</strong></td><td>in memory</td><td>yes</td><td>to the same people</td><td>that a reaction happened, and how many — <strong>never which emote</strong></td><td>about a minute; the server sweeps them</td></tr>
+      <tr><td><strong>Reactions and emotes you send</strong></td><td>in memory</td><td>yes</td><td>to the same people</td><td>that a reaction happened, and how many — <strong>never which emote</strong></td><td>deleted a minute after they are sent; the same scheduled sweep makes the outside limit 6 minutes</td></tr>
       <tr><td><strong>Mute</strong></td><td><strong>yes, only on your device</strong></td><td><strong>never</strong></td><td>no</td><td>no</td><td>until you unmute</td></tr>
       <tr><td><strong>Block</strong></td><td>no</td><td>yes</td><td>never — the other person is never told</td><td>that a block happened, with <strong>no identifiers of either party</strong></td><td>until you unblock</td></tr>
       <tr><td><strong>Panel position and size</strong></td><td><strong>yes</strong></td><td>never</td><td>no</td><td>no</td><td>until you reset the layout</td></tr>
@@ -221,6 +224,7 @@
       <p>Your own Watchside activity — that you clicked JOIN, that you arrived, how long you watched — is Watchside's own record of its own product, and <strong>is not deleted by disconnecting Twitch</strong>. Deleting your Watchside account does delete it.</p>
       <h3>Two kinds of chat, with two different lifetimes</h3>
       <p>The <strong>stream session</strong> that appears when you and your friends are watching the same thing is deliberately temporary: it is swept after thirty minutes and is not a history you can scroll back through.</p>
+      <p>A session can include people you are not friends with - friends of your friends watching the same channel. <strong>They do not see who you are just because you are watching.</strong> If you send a message or a reaction in the session, the people it reaches see your Twitch display name and picture next to it, so they know who they are talking to and can add you as a friend; that lasts for 30 minutes after your last message or reaction. People who only watch are never named.</p>
       <p><strong>Group chat is not.</strong> A group is a place you made on purpose, so its messages stay until the group is deleted or your account is. If you want a conversation that disappears, use the stream session; if you want one that lasts, use a group.</p>
       <h3>Your visibility setting</h3>
       <p>The account panel lets you choose whether friends see your activity, see only that you are online, or see nothing at all. <strong>This is applied when your presence is written, not when somebody reads it</strong> — if you have chosen to hide your activity, the channel is never stored, so there is nothing for anyone to read.</p>
@@ -234,7 +238,7 @@
       <p><strong>What this is not.</strong> It is not a cookie, not a tracking pixel, and not a third-party analytics or advertising product — Watchside uses none of those, anywhere. It cannot tell where else you have been, and it does not follow you across sites. It records that <em>a campaign</em> brought <em>an account</em>, and nothing about the browsing that happened in between.</p>
       <p><strong>Why it exists.</strong> Before spending real effort or money telling people about Watchside, we want to know which of those efforts actually bring people who go on to use it. Without this, the honest answer would be that we have no idea.</p>
       <p><strong>The link may carry extra labels for the advertising platform.</strong> A campaign link can end with things like <code>?utm_source=reddit</code> — standard marketing tags that let the platform we placed the ad on, and the browser stores, count how much traffic a campaign sent them in aggregate. <strong>Watchside itself ignores them completely.</strong> They are generated by us from the campaign's own definition, they say nothing about you, and nothing in Watchside ever reads one back: editing them changes nothing at all, because the short code is the only thing that decides anything. The browser store links carry the same kind of label, which is how Google and Mozilla can tell us "this many people reached the listing" without telling either of us who they were.</p>
-      <p><strong>A friend's invite is a different thing.</strong> <code>watchside.app/i/…</code> links record which Watchside user invited you, which is covered elsewhere in this policy. The two are stored separately and neither replaces the other.</p>
+      <p><strong>A friend's invite is a different thing.</strong> <code>watchside.app/i/…</code> links record which Watchside user invited you. When you sign in with one, Watchside shows you who sent it so you can send them a friend request - it never makes you friends by itself - and they see that the request came from their invite. If either of you has blocked the other, the link names nobody. The two records are stored separately and neither replaces the other.</p>
       <p>Deleting your Watchside account deletes this along with everything else.</p>
       <h3>Viewing time</h3>
       <p><strong>Watchside records how long you watch a live Twitch channel.</strong> When you are watching a channel, Watchside measures that stretch of time and records its length, together with the channel name.</p>
