@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Support — Watchside</title>
     <meta name="description" content="Help with Watchside, including when the extension will not open." />
+    <!--
+      Link previews. Generic on every page, the invite route included: the
+      page is static and never learns whose invite it is showing, so a link
+      pasted in a public channel discloses nobody. The image is the brand card,
+      not a screenshot.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Watchside" />
+    <meta property="og:title" content="Support — Watchside" />
+    <meta property="og:description" content="Help with Watchside, including when the extension will not open." />
+    <meta property="og:image" content="https://watchside.app/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:alt" content="Watchside - watch it together. The social layer for Twitch." />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0b0b0e" />
     <!--
       The mark, inline. An external icon file would be the one request these
@@ -147,7 +162,8 @@
         padding: 12px 20px;
         border-radius: 999px;
         background: var(--accent);
-        color: #1a1a21;
+        /* --bg rather than #1a1a21: 4.4:1 on the accent was just under AA. */
+        color: var(--bg);
         font-weight: 700;
         text-decoration: none;
       }
@@ -165,6 +181,15 @@
       @media (max-width: 480px) {
         .cta, .cta-alt { display: block; margin-left: 0; text-align: center; }
       }
+
+      .steps-list {
+        margin: 8px 0 20px;
+        padding-left: 1.4em;
+        color: var(--dim);
+      }
+      .steps-list li { margin-bottom: 10px; padding-left: 4px; }
+      .steps-list li::marker { color: var(--accent); font-weight: 700; }
+      .steps-list strong { color: var(--text); }
 
       .card {
         padding: 18px 20px;

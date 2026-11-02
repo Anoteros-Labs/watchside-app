@@ -3,8 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Watchside</title>
-    <meta name="description" content="Watchside — see where your friends are watching Twitch." />
+    <title>You’re invited to Watchside</title>
+    <meta name="description" content="A friend invited you to Watchside, the browser extension that shows where your friends are watching on Twitch." />
+    <!--
+      Link previews. Generic on every page, the invite route included: the
+      page is static and never learns whose invite it is showing, so a link
+      pasted in a public channel discloses nobody. The image is the brand card,
+      not a screenshot.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Watchside" />
+    <meta property="og:title" content="You’re invited to Watchside" />
+    <meta property="og:description" content="A friend invited you to Watchside, the browser extension that shows where your friends are watching on Twitch." />
+    <meta property="og:image" content="https://watchside.app/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:alt" content="Watchside - watch it together. The social layer for Twitch." />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0b0b0e" />
     <!--
       The mark, inline. An external icon file would be the one request these
@@ -147,7 +162,8 @@
         padding: 12px 20px;
         border-radius: 999px;
         background: var(--accent);
-        color: #1a1a21;
+        /* --bg rather than #1a1a21: 4.4:1 on the accent was just under AA. */
+        color: var(--bg);
         font-weight: 700;
         text-decoration: none;
       }
@@ -165,6 +181,15 @@
       @media (max-width: 480px) {
         .cta, .cta-alt { display: block; margin-left: 0; text-align: center; }
       }
+
+      .steps-list {
+        margin: 8px 0 20px;
+        padding-left: 1.4em;
+        color: var(--dim);
+      }
+      .steps-list li { margin-bottom: 10px; padding-left: 4px; }
+      .steps-list li::marker { color: var(--accent); font-weight: 700; }
+      .steps-list strong { color: var(--text); }
 
       .card {
         padding: 18px 20px;
@@ -236,17 +261,41 @@
         <a class="cta" id="install" href="https://chromewebstore.google.com/detail/ngfopkeokddfnncdhfkhnffilbdhkkip?utm_source=watchside_site&amp;utm_medium=referral&amp;utm_campaign=site_fallback"
           >Add to Chrome</a
         >
-        <a class="cta cta-alt" href="https://addons.mozilla.org/firefox/addon/watchside/?utm_source=watchside_site&amp;utm_medium=referral&amp;utm_campaign=site_fallback"
+        <a class="cta cta-alt" id="install-firefox" href="https://addons.mozilla.org/firefox/addon/watchside/?utm_source=watchside_site&amp;utm_medium=referral&amp;utm_campaign=site_fallback"
           >Add to Firefox</a
         >
       </p>
-      <p class="dim" id="next" hidden>
-        Install Watchside, then continue to Twitch and sign in. The invite is
-        remembered until you do.
-      </p>
+
+      <!--
+        Three numbered steps, because step 2 is the one people skip.
+
+        The invite reaches the extension only through the continue link below:
+        a content script on this page would need a host permission, so the code
+        is handed to Twitch instead (see js/route.js). Somebody who installs and
+        then opens Twitch on their own arrives with no invite. Saying it as a
+        step - and opening the store in a new tab so this page is still here to
+        come back to - is what keeps the invite from being lost.
+
+        Hidden until route.js recognises an invite or a campaign; a plain 404
+        shows only the buttons above.
+      -->
+      <ol class="steps-list" id="next" hidden>
+        <li>
+          <strong>Add Watchside to your browser.</strong> The store opens in a
+          new tab.
+        </li>
+        <li>
+          <strong>Come back to this tab and continue to Twitch.</strong> This is
+          what carries your invite into Watchside.
+        </li>
+        <li>
+          <strong>Sign in with Twitch in the Watchside panel.</strong>
+          <span id="step-three">Then add the friend who invited you.</span>
+        </li>
+      </ol>
       <p id="continue-wrap" hidden>
         <a class="cta" id="continue" href="https://www.twitch.tv/"
-          >Already installed — continue to Twitch</a
+          >Continue to Twitch</a
         >
       </p>
 

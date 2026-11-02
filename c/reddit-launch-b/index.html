@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Watchside — see where your friends are watching Twitch</title>
     <meta name="description" content="Watchside is a browser extension that shows which Twitch streams your friends are on, so you can jump in and watch together." />
+    <!--
+      Link previews. Generic on every page, the invite route included: the
+      page is static and never learns whose invite it is showing, so a link
+      pasted in a public channel discloses nobody. The image is the brand card,
+      not a screenshot.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Watchside" />
+    <meta property="og:title" content="Watchside — see where your friends are watching Twitch" />
+    <meta property="og:description" content="Watchside is a browser extension that shows which Twitch streams your friends are on, so you can jump in and watch together." />
+    <meta property="og:image" content="https://watchside.app/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:alt" content="Watchside - watch it together. The social layer for Twitch." />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0b0b0e" />
     <!--
       The mark, inline. An external icon file would be the one request these
@@ -147,7 +162,8 @@
         padding: 12px 20px;
         border-radius: 999px;
         background: var(--accent);
-        color: #1a1a21;
+        /* --bg rather than #1a1a21: 4.4:1 on the accent was just under AA. */
+        color: var(--bg);
         font-weight: 700;
         text-decoration: none;
       }
@@ -165,6 +181,15 @@
       @media (max-width: 480px) {
         .cta, .cta-alt { display: block; margin-left: 0; text-align: center; }
       }
+
+      .steps-list {
+        margin: 8px 0 20px;
+        padding-left: 1.4em;
+        color: var(--dim);
+      }
+      .steps-list li { margin-bottom: 10px; padding-left: 4px; }
+      .steps-list li::marker { color: var(--accent); font-weight: 700; }
+      .steps-list strong { color: var(--text); }
 
       .card {
         padding: 18px 20px;
@@ -231,7 +256,8 @@
     z-index: 10;
     padding: 12px 18px;
     border-radius: 10px;
-    background: var(--accent);
+    /* White on the bare accent is 3.96:1; on the deep end it is about 5.4:1. */
+    background: var(--accent-deep);
     color: #fff;
     font-weight: 650;
     text-decoration: none;
@@ -784,6 +810,16 @@
     padding: 16px;
   }
 }
+  /*
+   * A panel close-up on a phone is portrait. Centred and capped so it reads as
+   * a picture of the panel rather than a column of grey at full width.
+   */
+  @media (max-width: 640px) {
+    .shot picture img {
+      max-width: 360px;
+      margin-inline: auto;
+    }
+  }
 </style>
 
   </head>
@@ -879,19 +915,35 @@
         </div>
 
         <div class="wrap">
+          <!--
+            The whole frame, uncropped: Watchside beside a real live stream.
+            A phone gets the panel on its own - captured as its own picture,
+            not cut out of this one - because a 1600px frame at 360px is too
+            small to read. The friends are example accounts and the caption
+            says so.
+          -->
           <figure class="shot hero-shot">
-            <img
-              src="/img/gravity-join.webp"
-              srcset="/img/gravity-join.webp 1x, /img/gravity-join@2x.webp 2x"
-              width="1280"
-              height="800"
-              alt="Watching a Twitch stream with the Watchside panel docked on the right. The panel says one friend is here on this channel, and lists three more friends gathered together on another channel with a JOIN button beside them."
-              fetchpriority="high"
-              decoding="async"
-            />
+            <picture>
+              <source
+                media="(max-width: 640px)"
+                srcset="/img/gravity-panel.webp 1x, /img/gravity-panel@2x.webp 2x"
+                width="480"
+                height="654"
+              />
+              <img
+                src="/img/gravity-join.webp"
+                srcset="/img/gravity-join.webp 1x, /img/gravity-join@2x.webp 2x"
+                width="1280"
+                height="800"
+                alt="The Watchside panel beside a Twitch stream. It says one friend is here on this channel, and lists three more friends gathered together on another channel with a JOIN button beside them."
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
             <figcaption>
               Watchside beside Twitch. Friends are grouped by what they are
-              watching, and each group has a way in.
+              watching, and each group has a way in. Friends shown are example
+              accounts; the streams were live when captured.
             </figcaption>
           </figure>
         </div>
@@ -960,21 +1012,38 @@
               </p>
             </div>
             <figure class="shot">
+              <picture>
+                <source
+                  media="(max-width: 640px)"
+                  srcset="/img/here-panel.webp 1x, /img/here-panel@2x.webp 2x"
+                  width="480"
+                  height="654"
+                />
               <img
                 src="/img/here.webp"
                 srcset="/img/here.webp 1x, /img/here@2x.webp 2x"
                 width="1100"
-                height="687"
+                height="688"
                 alt="Watching a Twitch stream with three friends. The Watchside panel says three friends are here on this channel, with the friends who are elsewhere listed below, each with a JOIN button."
                 loading="lazy"
                 decoding="async"
               />
+              </picture>
+              <figcaption>Friends shown are example accounts.</figcaption>
             </figure>
           </div>
 
           <div class="split flip">
             <div class="split-text">
               <h3>Watch it together</h3>
+              <!--
+                DEFERRED until 0.9.2 AND migration 0050 are live: "Send a
+                message and the room sees your Twitch name. People who only
+                watch stay unnamed." On 0.9.0 and 0.9.1 a non-friend in a room
+                is still unnamed whether they speak or not, so the sentence
+                would describe something the installed extension does not do.
+                Restore it in the same change that ships 0.9.2.
+              -->
               <p>
                 Everyone who joined shares a small side conversation and quick
                 reactions, next to the stream rather than on top of it. Twitch
@@ -982,15 +1051,24 @@
               </p>
             </div>
             <figure class="shot">
+              <picture>
+                <source
+                  media="(max-width: 640px)"
+                  srcset="/img/together-panel.webp 1x, /img/together-panel@2x.webp 2x"
+                  width="480"
+                  height="852"
+                />
               <img
                 src="/img/together.webp"
                 srcset="/img/together.webp 1x, /img/together@2x.webp 2x"
                 width="1100"
-                height="687"
+                height="688"
                 alt="Watching a Twitch stream with friends. The Watchside panel shows a watching-together conversation and emoji reactions alongside the stream."
                 loading="lazy"
                 decoding="async"
               />
+              </picture>
+              <figcaption>Friends shown are example accounts.</figcaption>
             </figure>
           </div>
         </div>
@@ -1001,10 +1079,21 @@
       <section class="band centered">
         <div class="wrap">
           <span class="eyebrow">Your data</span>
-          <h2>It knows where you are watching. That is all.</h2>
+          <!--
+            Product language, and true. Earlier headlines ("It knows where you
+            are watching. That is all." / "Your friends see where you're
+            watching. Nothing else.") each claimed more than the product does
+            or less than the policy says - Watchside also records viewing time
+            and first-party usage events, and room participants see each
+            other's names. This says the actual trade, and points at the policy
+            for what is recorded.
+          -->
+          <h2>See where your friends are watching on Twitch, and let them see where you are.</h2>
           <p class="sub">
-            Watchside is built to show your friends one thing about you, and it
-            is the thing you already chose to do in public.
+            That is the trade, and you control your half of it: hide what you
+            are watching, or go invisible, whenever you like. What Watchside
+            itself records, including how long you watch, is set out in the
+            privacy policy.
           </p>
 
           <ul class="privacy">
@@ -1028,7 +1117,7 @@
               </svg>
               <span
                 ><strong>Runs on Twitch only.</strong> It never reads Twitch chat,
-                scrapes the page, or runs on any other site.</span
+                and never runs on any other site.</span
               >
             </li>
             <li>

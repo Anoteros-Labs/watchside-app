@@ -83,8 +83,29 @@
     return query.trim().toUpperCase()
   }
 
+  /*
+   * On an invite or campaign page the visitor has to COME BACK here after the
+   * store, so the store opens in a new tab and this one stays put. Same rule,
+   * and same rel (noopener, deliberately not noreferrer), as the campaign
+   * pages build-site.mjs renders.
+   */
+  function storesInNewTab() {
+    var ids = ['install', 'install-firefox']
+    for (var i = 0; i < ids.length; i += 1) {
+      var link = document.getElementById(ids[i])
+      if (link) {
+        link.setAttribute('target', '_blank')
+        link.setAttribute('rel', 'noopener')
+      }
+    }
+  }
+
   var campaign = readCampaign()
   if (CAMPAIGN_PATTERN.test(campaign)) {
+    storesInNewTab()
+    // Nobody invited a campaign visitor, so step 3 must not say a friend is waiting.
+    document.getElementById('step-three').textContent =
+      'Then add the friends you watch with.'
     /*
      * A campaign arrival. Different copy from an invite, because the
      * visitor was not invited by anybody they know and telling them
@@ -115,6 +136,7 @@
     return
   }
 
+  storesInNewTab()
   document.getElementById('headline').textContent =
     'A friend invited you to Watchside'
   document.getElementById('blurb').textContent =
